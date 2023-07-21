@@ -1,5 +1,5 @@
 use rocket::{
-    serde::{json::Json, Deserialize},
+    serde::{json::Json, Deserialize, Serialize},
     tokio::time::{sleep, Duration},
 };
 
@@ -32,18 +32,18 @@ fn foor_bar() -> &'static str {
     "Foo _____ bar!"
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 #[serde(crate = "rocket::serde")]
 struct User {
     name: String,
     age: u16,
 }
 
-#[post("/hello", format = "json", data = "<userInfo>")]
-fn user_data(mut userInfo: Json<User>) -> String {
-    userInfo.age = userInfo.age + 1;
-    userInfo.name += "模板";
-    format!("{:#?}", userInfo)
+#[post("/hello", format = "json", data = "<user_info>")]
+fn user_data(mut user_info: Json<User>) -> Json<User> {
+    user_info.age = user_info.age + 1;
+    user_info.name += " 模板";
+    user_info
 }
 
 #[launch]
