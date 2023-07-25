@@ -2,7 +2,7 @@ use rocket::{
     serde::{json::Json, Deserialize, Serialize},
     tokio::time::{sleep, Duration},
 };
-use rust_crud_api::count::count::count::{Data, Size};
+use rust_crud_api::apis::apis_all::apis::data_size as data;
 
 #[macro_use]
 extern crate rocket;
@@ -47,22 +47,12 @@ fn user_data(mut user_info: Json<User>) -> Json<User> {
     user_info
 }
 
-// 面积计算
-#[post("/data_size", format = "json", data = "<user_info>")]
-fn data_size(user_info: Json<Data>) -> String {
-    let a = Data {
-        width: user_info.width,
-        heidht: user_info.heidht,
-    };
-    format!("总面积{}", a.size_data())
-}
-
 #[launch]
 fn rocket() -> _ {
     rocket::build()
         .mount("/", routes![index, index2, get_name])
         .mount(
             "/hello2",
-            routes![index, seelp_data, foor_bar, user_data, data_size],
+            routes![index, seelp_data, foor_bar, user_data, data],
         )
 }
