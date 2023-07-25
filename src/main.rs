@@ -1,10 +1,8 @@
-pub mod count;
-
-use count::count::count::{Data, Size};
 use rocket::{
     serde::{json::Json, Deserialize, Serialize},
     tokio::time::{sleep, Duration},
 };
+use rust_crud_api::count::count::count::{Data, Size};
 
 #[macro_use]
 extern crate rocket;
