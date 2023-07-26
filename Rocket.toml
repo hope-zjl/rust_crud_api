@@ -1,3 +1,5 @@
 [default]
 address = "0.0.0.0"
 port = 8707
+[global.databases]
+hulo = { url = "postgres://root:Root123@192.168.1.214:2097/hulu" }

@@ -2,7 +2,7 @@ use rocket::{
     serde::{json::Json, Deserialize, Serialize},
     tokio::time::{sleep, Duration},
 };
-use rust_crud_api::apis::apis_all::apis::data_size as data;
+use rust_crud_api::{apis::apis_all::apis::data_size as data, db::db::db::init_db};
 
 #[macro_use]
 extern crate rocket;
@@ -48,8 +48,9 @@ fn user_data(mut user_info: Json<User>) -> Json<User> {
 }
 
 #[launch]
-fn rocket() -> _ {
+async fn rocket() -> _ {
     rocket::build()
+        .attach(init_db())
         .mount("/", routes![index, index2, get_name])
         .mount(
             "/hello2",
